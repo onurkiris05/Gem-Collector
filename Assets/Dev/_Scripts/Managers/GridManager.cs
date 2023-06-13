@@ -14,6 +14,14 @@ public class GridManager : MonoBehaviour
     public List<Tile> Tiles => _tiles;
     private List<Tile> _tiles = new();
 
+    private void Awake() => _tiles = FindObjectsOfType<Tile>().ToList();
+
+    private void Start()
+    {
+        GameManager.Instance.InvokeOnGridInit(_tiles);
+    }
+
+
 #if UNITY_EDITOR
     [ContextMenu("Grid/Generate Tiles")]
     private void GenerateTiles()
