@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Gem : GemBase
 {
-    private GemStats _myBaseStats = new();
+    private GemStats _myStats = new();
 
     public override void Init<T>(T stats)
     {
-        _myBaseStats = (GemStats)(object)stats;
+        _myStats = (GemStats)(object)stats;
         transform.localScale = Vector3.zero;
     }
 
-    public override float GemValue()
+    public override int Value()
     {
-        var gemValue = _myBaseStats.BasePrice * transform.localScale.magnitude * 100;
+        var gemValue = Mathf.RoundToInt(_myStats.BasePrice + transform.localScale.x * 100);
         return gemValue;
     }
 }

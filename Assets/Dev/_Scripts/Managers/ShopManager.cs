@@ -11,7 +11,7 @@ public class ShopManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") && _isSelling) return;
+        if (!other.CompareTag("Player") || _isSelling) return;
 
         if (other.TryGetComponent(out StackHandler stackHandler))
         {
@@ -22,7 +22,7 @@ public class ShopManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player") && !_isSelling) return;
+        if (!other.CompareTag("Player") || !_isSelling) return;
 
         _isSelling = false;
         StopCoroutine(_saleCoroutine);

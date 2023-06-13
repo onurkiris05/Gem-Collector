@@ -18,7 +18,7 @@ public abstract class GemBase : MonoBehaviour
     }
 
     public abstract void Init<T>(T type);
-    public abstract float GemValue();
+    public abstract int Value();
     
     public virtual void Collect()
     {
@@ -37,8 +37,8 @@ public abstract class GemBase : MonoBehaviour
         {
             var scaleFactor = _timer / growTime;
             transform.localScale = Vector3.one * scaleFactor;
-                
-            if (transform.localScale.magnitude > minCollectableSize)
+
+            if (transform.localScale.x > minCollectableSize)
                 IsCollectable = true;
         }
         else
