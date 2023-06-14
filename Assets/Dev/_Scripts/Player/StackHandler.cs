@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class StackHandler : MonoBehaviour
@@ -42,10 +43,14 @@ public class StackHandler : MonoBehaviour
 
     private void AddToStack(GemBase gem)
     {
-        _gems.Push(gem);
-        gem.transform.SetParent(baseTransform);
-        gem.transform.SetLocalPositionAndRotation(_stackPos, Quaternion.identity);
+        var pos = _stackPos;
         _stackPos += gem.TopPivot;
+        
+        gem.transform.SetParent(baseTransform);
+        gem.transform.DOLocalJump(pos, 2f, 1, 1f).OnComplete(() =>
+        {
+            _gems.Push(gem);
+        });
     }
 
     #endregion

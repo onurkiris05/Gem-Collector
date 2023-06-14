@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -43,6 +44,9 @@ public class ShopManager : MonoBehaviour
             {
                 GameManager.Instance.InvokeOnGemSale(gem);
                 Destroy(gem.gameObject);
+
+                transform.DOComplete();
+                transform.DOScale(Vector3.one * 1.2f, 0.1f).From();
             }
 
             yield return Helpers.BetterWaitForSeconds(saleDelay);
