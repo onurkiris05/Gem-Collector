@@ -6,19 +6,27 @@ public abstract class GemBase : MonoBehaviour
     [SerializeField] protected float growTime = 5f;
     [SerializeField] protected float minCollectableSize = 0.25f;
     [SerializeField] protected Transform topPivot;
-    public bool IsCollectable { get; protected set; }
+    
     public Vector3 TopPivot => Vector3.Scale(topPivot.localPosition, transform.localScale);
+    public bool IsCollectable { get; protected set; }
     
     protected bool _isGrowing = true;
     protected float _timer;
-    
+
+    #region UNITY EVENTS
+
     protected virtual void Update()
     {
         GrowInTime();
     }
 
+    #endregion
+
+    #region PUBLIC METHODS
+
     public abstract void Init<T>(T type);
     public abstract int Value();
+    public abstract GemBaseStats Stats();
     
     public virtual void Collect()
     {
@@ -26,7 +34,11 @@ public abstract class GemBase : MonoBehaviour
         IsCollectable = false;
         GameManager.Instance.InvokeOnGemCollect(transform.position);
     }
-    
+
+    #endregion
+
+    #region PROTECTED METHODS
+
     protected virtual void GrowInTime()
     {
         if (!_isGrowing) return;
@@ -47,6 +59,8 @@ public abstract class GemBase : MonoBehaviour
             _isGrowing = false;
         }
     }
+
+    #endregion
 }
 
 // Inherit from this class for future different kind of gem stats

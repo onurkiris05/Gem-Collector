@@ -9,6 +9,8 @@ public class ShopManager : MonoBehaviour
     private Coroutine _saleCoroutine;
     private bool _isSelling;
 
+    #region UNITY EVENTS
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || _isSelling) return;
@@ -28,15 +30,24 @@ public class ShopManager : MonoBehaviour
         StopCoroutine(_saleCoroutine);
     }
 
+    #endregion
+
+    #region PRIVATE METHODS
+
     private IEnumerator ProcessGemSale(StackHandler stackHandler)
     {
         while (_isSelling)
         {
             var gem = stackHandler.GetFromStack();
             if (gem != null)
+            {
                 GameManager.Instance.InvokeOnGemSale(gem);
+                Destroy(gem.gameObject);
+            }
 
             yield return Helpers.BetterWaitForSeconds(saleDelay);
         }
     }
+
+    #endregion
 }

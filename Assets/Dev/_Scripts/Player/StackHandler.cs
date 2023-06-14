@@ -8,6 +8,8 @@ public class StackHandler : MonoBehaviour
     private Vector3 _stackPos = Vector3.zero;
     private Stack<GemBase> _gems = new();
 
+    #region UNITY EVENTS
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out GemBase gem))
@@ -18,6 +20,10 @@ public class StackHandler : MonoBehaviour
             AddToStack(gem);
         }
     }
+
+    #endregion
+
+    #region PUBLIC METHODS
 
     public GemBase GetFromStack()
     {
@@ -30,6 +36,10 @@ public class StackHandler : MonoBehaviour
         return null;
     }
 
+    #endregion
+
+    #region PRIVATE METHODS
+
     private void AddToStack(GemBase gem)
     {
         _gems.Push(gem);
@@ -37,4 +47,6 @@ public class StackHandler : MonoBehaviour
         gem.transform.SetLocalPositionAndRotation(_stackPos, Quaternion.identity);
         _stackPos += gem.TopPivot;
     }
+
+    #endregion
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Settings")]
     [SerializeField] private float speed;
     [SerializeField] private float turnSpeed;
 

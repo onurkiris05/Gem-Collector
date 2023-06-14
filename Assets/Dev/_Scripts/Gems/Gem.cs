@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Gem : GemBase
 {
+    public override GemBaseStats Stats() => _myStats;
     private GemStats _myStats = new();
+
+    #region PUBLIC METHODS
 
     public override void Init<T>(T stats)
     {
@@ -16,6 +19,8 @@ public class Gem : GemBase
         var gemValue = Mathf.RoundToInt(_myStats.BasePrice + transform.localScale.x * 100);
         return gemValue;
     }
+
+    #endregion
 }
 
 [Serializable]
